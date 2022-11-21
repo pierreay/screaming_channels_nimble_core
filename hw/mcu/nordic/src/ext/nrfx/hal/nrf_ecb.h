@@ -35,6 +35,7 @@
 #define NRF_ECB_H__
 
 #include <nrfx.h>
+#include "console/console.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -214,6 +215,7 @@ NRF_STATIC_INLINE void nrf_ecb_publish_clear(NRF_ECB_Type *  p_reg,
 
 NRF_STATIC_INLINE void nrf_ecb_task_trigger(NRF_ECB_Type * p_reg, nrf_ecb_task_t task)
 {
+    console_printf("[mynewt-core/hw/mcu/nordic/src/ext/nrfx/hal/nrf_ecb.h] nrf_ecb_task_trigger(task=%lu)\n", (uint32_t)task);
     *((volatile uint32_t *)((uint8_t *)p_reg + (uint32_t)task)) = 0x1UL;
 }
 
