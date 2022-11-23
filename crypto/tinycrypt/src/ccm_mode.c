@@ -64,7 +64,9 @@ int tc_ccm_config(TCCcmMode_t c, TCAesKeySched_t sched, uint8_t *nonce,
 static void ccm_cbc_mac(uint8_t *T, const uint8_t *data, unsigned int dlen,
 			unsigned int flag, TCAesKeySched_t sched)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] ccm_cbc_mac()\n");
+#endif
 	unsigned int i;
 
 	if (flag > 0) {
@@ -93,7 +95,9 @@ static void ccm_cbc_mac(uint8_t *T, const uint8_t *data, unsigned int dlen,
 static int ccm_ctr_mode(uint8_t *out, unsigned int outlen, const uint8_t *in,
 			unsigned int inlen, uint8_t *ctr, const TCAesKeySched_t sched)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] ccm_ctr_mode()\n");
+#endif
 	uint8_t buffer[TC_AES_BLOCK_SIZE];
 	uint8_t nonce[TC_AES_BLOCK_SIZE];
 	uint16_t block_num;

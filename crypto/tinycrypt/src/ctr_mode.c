@@ -37,7 +37,9 @@
 int tc_ctr_mode(uint8_t *out, unsigned int outlen, const uint8_t *in,
 		unsigned int inlen, uint8_t *ctr, const TCAesKeySched_t sched)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_ctr_mode()\n");
+#endif
 	uint8_t buffer[TC_AES_BLOCK_SIZE];
 	uint8_t nonce[TC_AES_BLOCK_SIZE];
 	unsigned int block_num;

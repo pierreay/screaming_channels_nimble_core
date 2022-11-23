@@ -61,7 +61,9 @@ static const uint8_t inv_sbox[256] = {
 
 int tc_aes128_set_decrypt_key(TCAesKeySched_t s, const uint8_t *k)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_aes128_set_decrypt_key()\n");
+#endif
 	return tc_aes128_set_encrypt_key(s, k);
 }
 
@@ -129,7 +131,9 @@ static inline void inv_shift_rows(uint8_t *s)
 
 int tc_aes_decrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_aes_decrypt()\n");
+#endif
 	uint8_t state[Nk*Nb];
 	unsigned int i;
 

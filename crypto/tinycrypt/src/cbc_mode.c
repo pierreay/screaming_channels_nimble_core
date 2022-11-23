@@ -38,7 +38,9 @@ int tc_cbc_mode_encrypt(uint8_t *out, unsigned int outlen, const uint8_t *in,
 			    unsigned int inlen, const uint8_t *iv,
 			    const TCAesKeySched_t sched)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_cbc_mode_encrypt()\n");
+#endif
 	uint8_t buffer[TC_AES_BLOCK_SIZE];
 	unsigned int n, m;
 
@@ -78,7 +80,9 @@ int tc_cbc_mode_decrypt(uint8_t *out, unsigned int outlen, const uint8_t *in,
 			    unsigned int inlen, const uint8_t *iv,
 			    const TCAesKeySched_t sched)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_cbc_mode_decrypt()\n");
+#endif
 	uint8_t buffer[TC_AES_BLOCK_SIZE];
 	const uint8_t *p;
 	unsigned int n, m;

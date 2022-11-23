@@ -69,7 +69,9 @@ static inline unsigned int rotword(unsigned int a)
 
 int tc_aes128_set_encrypt_key(TCAesKeySched_t s, const uint8_t *k)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_aes128_set_encrypt_key()\n");
+#endif
 	const unsigned int rconst[11] = {
 		0x00000000, 0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000,
 		0x20000000, 0x40000000, 0x80000000, 0x1b000000, 0x36000000
@@ -158,7 +160,9 @@ static inline void shift_rows(uint8_t *s)
 
 int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
     console_printf("[mynewt/tinycrypt] tc_aes_encrypt()\n");
+#endif
 	uint8_t state[Nk*Nb];
 	unsigned int i;
 
