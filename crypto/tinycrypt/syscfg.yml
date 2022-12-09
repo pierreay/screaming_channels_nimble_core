@@ -17,6 +17,17 @@
 #
 
 syscfg.defs:
+    TINYCRYPT_INSTR_LOOP_ENABLE:
+        description: >
+            Enable TinyCrypt instrumentation using loops.
+        value: 0
+
+    TINYCRYPT_INSTR_LOOP_NB:
+        description: >
+            Number of loop for a single encryption if
+            TINYCRYPT_INSTR_LOOP_ENABLE is set to 1.
+        value: 1
+
     TINYCRYPT_UECC_RNG_USE_TRNG:
         description: >
             Configure uECC RNG to use TRNG driver by default.
