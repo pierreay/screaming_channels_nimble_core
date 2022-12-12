@@ -160,6 +160,9 @@ static inline void shift_rows(uint8_t *s)
 
 int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 {
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("[mynewt/tinycrypt] tc_aes_encrypt()\n");
+#endif
 	uint8_t state[Nk*Nb];
 	unsigned int i;
 
@@ -170,14 +173,6 @@ int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 	} else if (s == (TCAesKeySched_t) 0) {
 		return TC_CRYPTO_FAIL;
 	}
-
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-    for (int j = 0; j < MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_NB); j++) {
-#endif
-
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[mynewt/tinycrypt] tc_aes_encrypt()\n");
-#endif
 
 	(void)_copy(state, sizeof(state), in, sizeof(state));
 	add_round_key(state, s->words);
@@ -197,10 +192,6 @@ int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 
 	/* zeroing out the state buffer */
 	_set(state, TC_ZERO_BYTE, sizeof(state));
-
-#if MYNEWT_VAL(TINYCRYPT_INSTR_LOOP_ENABLE)
-    }
-#endif
 
 	return TC_CRYPTO_SUCCESS;
 }
