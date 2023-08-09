@@ -30,6 +30,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdint.h>
 #include <tinycrypt/aes.h>
 #include <tinycrypt/utils.h>
 #include <tinycrypt/constants.h>
@@ -175,6 +176,11 @@ int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 	}
 
 	(void)_copy(state, sizeof(state), in, sizeof(state));
+#if MYNEWT_VAL(CONSOLE_LOG)
+    console_printf("state[0]=%02x\n", state[0]);
+    unsigned int *k = s->words;
+    console_printf("key[0]=%02x\n", (uint8_t)(k[0] >> 24));
+#endif
 	add_round_key(state, s->words);
 
 	for (i = 0; i < (Nr - 1); ++i) {
