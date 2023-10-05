@@ -70,8 +70,10 @@ static inline unsigned int rotword(unsigned int a)
 
 int tc_aes128_set_encrypt_key(TCAesKeySched_t s, const uint8_t *k)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[mynewt/tinycrypt] tc_aes128_set_encrypt_key()\n");
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5
+    console_printf("[aes_encrypt.c] tc_aes128_set_encrypt_key()\n");
+#endif
 #endif
 	const unsigned int rconst[11] = {
 		0x00000000, 0x01000000, 0x02000000, 0x04000000, 0x08000000, 0x10000000,
@@ -161,8 +163,10 @@ static inline void shift_rows(uint8_t *s)
 
 int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 {
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("[mynewt/tinycrypt] tc_aes_encrypt()\n");
+#if MYNEWT_VAL(SC_LOG_TRACE_ENABLE)
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5
+    console_printf("[aes_encrypt.c] tc_aes_encrypt()\n");
+#endif
 #endif
 	uint8_t state[Nk*Nb];
 	unsigned int i;
@@ -176,10 +180,12 @@ int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 	}
 
 	(void)_copy(state, sizeof(state), in, sizeof(state));
-#if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("state[0]=%02x\n", state[0]);
+#if MYNEWT_VAL(SC_LOG_DUMP_ENABLE)
+#if MYNEWT_VAL(SC_TINYCRYPT_INSTR_LOOP_NB) < 5
+    console_printf("[v] state[0]=%02x\n", state[0]);
     unsigned int *k = s->words;
-    console_printf("key[0]=%02x\n", (uint8_t)(k[0] >> 24));
+    console_printf("[v] key[0]=%02x\n", (uint8_t)(k[0] >> 24));
+#endif
 #endif
 	add_round_key(state, s->words);
 
