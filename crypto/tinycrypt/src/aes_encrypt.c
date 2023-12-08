@@ -177,9 +177,14 @@ int tc_aes_encrypt(uint8_t *out, const uint8_t *in, const TCAesKeySched_t s)
 
 	(void)_copy(state, sizeof(state), in, sizeof(state));
 #if MYNEWT_VAL(CONSOLE_LOG)
-    console_printf("state[0]=%02x\n", state[0]);
+    console_printf("state=0x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+                   state[0], state[1], state[2], state[3], state[4], state[5], state[6], state[7], state[8], state[9], state[10], state[11], state[12], state[13], state[14], state[15]);
     unsigned int *k = s->words;
-    console_printf("key[0]=%02x\n", (uint8_t)(k[0] >> 24));
+    console_printf("key=0x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x\n",
+                   (uint8_t)(k[0] >> 24), (uint8_t)(k[0] >> 16), (uint8_t)(k[0] >> 8), (uint8_t)(k[0]),
+                   (uint8_t)(k[1] >> 24), (uint8_t)(k[1] >> 16), (uint8_t)(k[1] >> 8), (uint8_t)(k[1]),
+                   (uint8_t)(k[2] >> 24), (uint8_t)(k[2] >> 16), (uint8_t)(k[2] >> 8), (uint8_t)(k[2]),
+                   (uint8_t)(k[3] >> 24), (uint8_t)(k[3] >> 16), (uint8_t)(k[3] >> 8), (uint8_t)(k[3]));
 #endif
 	add_round_key(state, s->words);
 
